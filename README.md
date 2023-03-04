@@ -29,7 +29,7 @@ Dataset used in this project you can find below this [link](https://www.kaggle.c
 In this part, I analisis basic pokemon stats and put in to graph. 
 
 
-###Percent of number of pokemon in each generation
+### Percent of number of pokemon in each generation
 
 ![Figure_1](https://user-images.githubusercontent.com/122997699/216782333-613f6a6a-d782-4b54-9f63-15ce4e5e73c4.png)
 
