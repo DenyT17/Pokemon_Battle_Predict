@@ -28,9 +28,16 @@ Dataset used in this project you can find below this [link](https://www.kaggle.c
 
 ## Project implementation description 🔍
 In this part, I analisis basic pokemon stats and put in to graph. Part of cod responsible is in ***analysis*** function. 
+In addition, in this part, I fill in all the Nan values, and create a new DataFrames that contains the required information to train the model, such as:
 
+* statistics of both pokemons (from the pokemon csv file) participating in the battle (from the combats.csv file),
+* winner of every battle
 
-### Percent of number of pokemon in each generation
+This DataFrame is use to train model. 
+
+#### Analysis Graphs:
+
+### Percent of number of pokemon in each generation 
 
 ![Figure_1](https://user-images.githubusercontent.com/122997699/216782333-613f6a6a-d782-4b54-9f63-15ce4e5e73c4.png)
 
