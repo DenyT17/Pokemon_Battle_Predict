@@ -56,3 +56,6 @@ This DataFrame is use to train model.
 ##### -Top 10 pokemons with the best win ratio.
 
 ![Figure_5](https://user-images.githubusercontent.com/122997699/216782343-806d6b73-11da-4636-b1e3-d68e6ee8b09c.png)
+
+## Next goals 🏆⌛
+* Create GUI
