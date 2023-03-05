@@ -34,6 +34,7 @@ def analisis(poke_data,combat_data):
     plt.title('Main pokemons type', fontsize=20)
     plt.grid()
 
+
     combat_data.rename(columns={"First_pokemon": "#"}, inplace=True)
     own_stats = combat_data.merge(poke_data, on='#', how='left')
     second_pokemon = poke_data.rename(columns={"#": "Second_pokemon"})
