@@ -1,4 +1,4 @@
-# Pokemon Analisis 🐲
+# Pokemon Analysis 🐲
 
 ## Technologies 💡
 ![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)
@@ -9,8 +9,9 @@
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
 
 ## Description 
-In this project i analyze and prepare pokemon dataset. Thanks to which i can make prediction on pokemon battles winners.
-I find pokemon with the best win ratio and with most number of wins. 
+In this project i analyze and prepare pokemon dataset.I find pokemon with the best win ratio and with most number of wins.
+I train model with the best with the greatest possible accuracy.At the end I make simple GUI to visualisation pokemon battle winner prediction.
+I will reguraly upadte code and description. 
 
 ## Project stages
 
@@ -26,7 +27,7 @@ I find pokemon with the best win ratio and with most number of wins.
 Dataset used in this project you can find below this [link](https://www.kaggle.com/datasets/terminus7/pokemon-challenge)
 
 ## Project implementation description 🔍
-In this part, I analisis basic pokemon stats and put in to graph. 
+In this part, I analisis basic pokemon stats and put in to graph. Part of cod responsible is in ***analysis*** function. 
 
 
 ### Percent of number of pokemon in each generation
