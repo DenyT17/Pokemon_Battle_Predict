@@ -37,26 +37,17 @@ This DataFrame is use to train model.
 
 #### Analysis Graphs:
 
-##### -Percent of number of pokemon in each generation 
+To zoom each graph click on it.
 
-![Figure_1](https://user-images.githubusercontent.com/122997699/216782333-613f6a6a-d782-4b54-9f63-15ce4e5e73c4.png)
+| Name| Graph | Short Description |
+| -- | ------------- | ------------- |
+| Number of pokemon in each type|<img src="https://user-images.githubusercontent.com/122997699/216782334-e50775c8-0c3f-4a5b-af42-a24ce95c1184.png" width="600" height="250">| Bar chart showing number of pokemon in each type.There are the most water-type and normal-type Pokemon, and the least flying-type.  |
+|Percent of number of pokemon in each generation.| <img src="https://user-images.githubusercontent.com/122997699/216782333-613f6a6a-d782-4b54-9f63-15ce4e5e73c4.png" width="600" height="250">|A pie chart showing how much of the Pokemon set are Pokemon from a each generation.  The fewest Pokemon come from the sixth generation. The number of Pokemon from other generations is similar.|
+|Analysis percent of wins battle of pokemon from each generation| <img src="https://user-images.githubusercontent.com/122997699/216782337-903efa19-b692-46f4-adf1-ce39fd7fa274.png" width="450" height="250">|Bar graph, showing percent of wins to pokemon from each generations. According to the chart in second and third generation pokemons are the weakest. The most powerful pokemons are in fourth generation.|
+|Top 10 pokemons with most number of wins|<img src="https://user-images.githubusercontent.com/122997699/216782341-8a87e229-0719-4a7b-a7c0-a2b4701ef3b6.png" width="450" height="250">|This graph showing ten pokemon with the most wins. |
+|Top 10 pokemons with the best win ratio|<img src="https://user-images.githubusercontent.com/122997699/216782343-806d6b73-11da-4636-b1e3-d68e6ee8b09c.png" width="450" height="250">| This graph showing ten pokemon with the best win ratio|
 
-##### -Number of pokemon in each type
-
-![Figure_2](https://user-images.githubusercontent.com/122997699/216782334-e50775c8-0c3f-4a5b-af42-a24ce95c1184.png)
-
-##### -Analysis percent of wins battle of pokemon from each generation.
-
-![Figure_3](https://user-images.githubusercontent.com/122997699/216782337-903efa19-b692-46f4-adf1-ce39fd7fa274.png)
-
-##### -Top 10 pokemons with most number of wins. 
-
-![Figure_4](https://user-images.githubusercontent.com/122997699/216782341-8a87e229-0719-4a7b-a7c0-a2b4701ef3b6.png)
-
-##### -Top 10 pokemons with the best win ratio.
-
-![Figure_5](https://user-images.githubusercontent.com/122997699/216782343-806d6b73-11da-4636-b1e3-d68e6ee8b09c.png)
-
+  
 ## Next goals 🏆⌛
 * Create GUI
 * Try different classifiers and choose the best one
