@@ -5,7 +5,7 @@ import sklearn
 import seaborn as sns
 from sklearn import (datasets, metrics,model_selection as skms,naive_bayes,neighbors)
 from sklearn.preprocessing import StandardScaler
-
+from tabulate import tabulate
 def pokemon_battle(pokemon1,pokemon2,poke_data,x_train):
     pokemon1 = poke_data.loc[poke_data['Name'] == pokemon1].reset_index()
     pokemon2 = poke_data.loc[poke_data['Name'] == pokemon2].reset_index()
@@ -20,13 +20,11 @@ def pokemon_battle(pokemon1,pokemon2,poke_data,x_train):
     pokemon_battle = pd.concat([pokemon1, pokemon2], axis=1)
     pokemon_battle = pd.concat([pokemon_battle, x_train], axis=0).reset_index()
     pokemon_battle = pokemon_battle.drop(['index'], axis=1)
-    print(pokemon_battle.iloc[:1])
     for column in pokemon_battle.columns:
         ages_data = np.array(pokemon_battle[column]).reshape(-1, 1)
         pokemon_battle[column] = StandardScaler().fit_transform(ages_data)
-    print(pokemon_battle.iloc[:1])
     return pokemon_battle.iloc[:1]
-def analisis(poke_data,combat_data):
+def analysis(poke_data,combat_data):
     # A function that calculates what percentage of the data set is a given generation
     def func(pct, allvalues):
         absolute = int(pct / 100. * np.sum(allvalues))
@@ -125,3 +123,16 @@ def analisis(poke_data,combat_data):
     plt.show()
 
     return train,y_train
+
+def choose_classifier(classifiers,poke_train_ftrs,poke_train_trg,poke_test_ftrs,poke_test_trg):
+    rank = pd.DataFrame(columns=["Name","Accuracy"])
+    i=0
+    for classifier in classifiers:
+        fit = classifier.fit(poke_train_ftrs, poke_train_trg)
+        preds = fit.predict(poke_test_ftrs)
+        name = classifier.__class__.__name__
+        rank.loc[i,"Name"] = name
+        rank.loc[i,"Accuracy"] = metrics.accuracy_score(poke_test_trg, preds)
+        i+=1
+    rank = rank.sort_values(by="Accuracy",ascending=False).reset_index(drop=True)
+    print(tabulate(rank, headers = 'keys', tablefmt = "rounded_outline"))
