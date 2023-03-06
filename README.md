@@ -27,17 +27,18 @@ I will reguraly upadte code and description.
 Dataset used in this project you can find below this [link](https://www.kaggle.com/datasets/terminus7/pokemon-challenge)
 
 ## Project implementation description 🔍
+### Analysis
 In this part, I analisis basic pokemon stats and put in to graph. Part of cod responsible is in ***analysis*** function. 
 In addition, in this part, I fill in all the Nan values, and create a new DataFrames that contains the required information to train the model, such as:
 
 * statistics of both pokemons (from the pokemon csv file) participating in the battle (from the combats.csv file),
 * winner of every battle
 
-This DataFrame is use to train model. 
+This DataFrame is use to train model.
 
 #### Analysis Graphs:
 
-To zoom each graph click on it.
+**To zoom each graph click on it.**
 
 | Name| Graph | Short Description |
 | -- | ------------- | ------------- |
@@ -47,7 +48,36 @@ To zoom each graph click on it.
 |Top 10 pokemons with most number of wins|<img src="https://user-images.githubusercontent.com/122997699/216782341-8a87e229-0719-4a7b-a7c0-a2b4701ef3b6.png" width="450" height="250">|This graph showing ten pokemon with the most wins. |
 |Top 10 pokemons with the best win ratio|<img src="https://user-images.githubusercontent.com/122997699/216782343-806d6b73-11da-4636-b1e3-d68e6ee8b09c.png" width="450" height="250">| This graph showing ten pokemon with the best win ratio|
 
-  
+### Rescaling data and choosing classifier with the highest accuracy.
+#### Rescaling data
+In this part of project first i rescale dataset. Thanks to which accuracy may be higher and training model will be faster.
+```python
+for column in x_train.columns:
+    ages_data = np.array(train[column]).reshape(-1, 1)
+    x_train[column] = StandardScaler().fit_transform(ages_data)
+```
+***ScandarScaler()*** function standardizes features by removing the mean and scaling to unit variance.
+#### Choosing classifier with the highest accuracy.
+
+In this case I create ***choose classifier*** function. This function return table with names and accuracy of chosen classifiers. 
+```python
+def choose_classifier(classifiers,poke_train_ftrs,poke_train_trg,poke_test_ftrs,poke_test_trg):
+    rank = pd.DataFrame(columns=["Name","Accuracy"])
+    i=0
+    for classifier in classifiers:
+        fit = classifier.fit(poke_train_ftrs, poke_train_trg)
+        preds = fit.predict(poke_test_ftrs)
+        name = classifier.__class__.__name__
+        rank.loc[i,"Name"] = name
+        rank.loc[i,"Accuracy"] = metrics.accuracy_score(poke_test_trg, preds)
+        i+=1
+    rank = rank.sort_values(by="Accuracy",ascending=False).reset_index(drop=True)
+    print(tabulate(rank, headers = 'keys', tablefmt = "rounded_outline"))
+```
+![image](https://user-images.githubusercontent.com/122997699/223136129-e5d49086-6a5c-444b-887f-050a1c6031aa.png)
+
+
+According this information I choose _RandomForestClassifier_.
 ## Next goals 🏆⌛
 * Create GUI
 * Try different classifiers and choose the best one
