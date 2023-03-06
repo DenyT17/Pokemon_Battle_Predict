@@ -1,4 +1,4 @@
-# Pokemon Analisis 🐲
+# Pokemon Analysis 🐲
 
 ## Technologies 💡
 ![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)
@@ -9,8 +9,9 @@
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
 
 ## Description 
-In this project i analyze and prepare pokemon dataset. Thanks to which i can make prediction on pokemon battles winners.
-I find pokemon with the best win ratio and with most number of wins. 
+In this project i analyze and prepare pokemon dataset.I find pokemon with the best win ratio and with most number of wins.
+I train model with the best with the greatest possible accuracy.At the end I make simple GUI to visualisation pokemon battle winner prediction.
+I will reguraly upadte code and description. 
 
 ## Project stages
 
@@ -26,25 +27,36 @@ I find pokemon with the best win ratio and with most number of wins.
 Dataset used in this project you can find below this [link](https://www.kaggle.com/datasets/terminus7/pokemon-challenge)
 
 ## Project implementation description 🔍
-In this part, I analisis basic pokemon stats and put in to graph. 
+In this part, I analisis basic pokemon stats and put in to graph. Part of cod responsible is in ***analysis*** function. 
+In addition, in this part, I fill in all the Nan values, and create a new DataFrames that contains the required information to train the model, such as:
 
+* statistics of both pokemons (from the pokemon csv file) participating in the battle (from the combats.csv file),
+* winner of every battle
 
-### Percent of number of pokemon in each generation
+This DataFrame is use to train model. 
+
+#### Analysis Graphs:
+
+##### -Percent of number of pokemon in each generation 
 
 ![Figure_1](https://user-images.githubusercontent.com/122997699/216782333-613f6a6a-d782-4b54-9f63-15ce4e5e73c4.png)
 
-### Number of pokemon in each type
+##### -Number of pokemon in each type
 
 ![Figure_2](https://user-images.githubusercontent.com/122997699/216782334-e50775c8-0c3f-4a5b-af42-a24ce95c1184.png)
 
-### Analysis percent of wins battle of pokemon from each generation.
+##### -Analysis percent of wins battle of pokemon from each generation.
 
 ![Figure_3](https://user-images.githubusercontent.com/122997699/216782337-903efa19-b692-46f4-adf1-ce39fd7fa274.png)
 
-### Top 10 pokemons with most number of wins. 
+##### -Top 10 pokemons with most number of wins. 
 
 ![Figure_4](https://user-images.githubusercontent.com/122997699/216782341-8a87e229-0719-4a7b-a7c0-a2b4701ef3b6.png)
 
-### Top 10 pokemons with the best win ratio.
+##### -Top 10 pokemons with the best win ratio.
 
 ![Figure_5](https://user-images.githubusercontent.com/122997699/216782343-806d6b73-11da-4636-b1e3-d68e6ee8b09c.png)
+
+## Next goals 🏆⌛
+* Create GUI
+* Try different classifiers and choose the best one
