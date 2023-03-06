@@ -78,6 +78,8 @@ def choose_classifier(classifiers,poke_train_ftrs,poke_train_trg,poke_test_ftrs,
 
 
 According this information I choose _RandomForestClassifier_.
+
 ## Next goals 🏆⌛
 * Create GUI
 * Try different classifiers and choose the best one
+* Cross validation and Feature enginering to increase accuracy 
