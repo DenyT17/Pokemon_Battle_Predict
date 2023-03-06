@@ -59,3 +59,4 @@ This DataFrame is use to train model.
 
 ## Next goals 🏆⌛
 * Create GUI
+* Try different classifiers and choose the best one
