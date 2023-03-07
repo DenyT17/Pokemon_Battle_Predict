@@ -48,6 +48,28 @@ This DataFrame is use to train model.
 |Top 10 pokemons with most number of wins|<img src="https://user-images.githubusercontent.com/122997699/216782341-8a87e229-0719-4a7b-a7c0-a2b4701ef3b6.png" width="450" height="250">|This graph showing ten pokemon with the most wins. |
 |Top 10 pokemons with the best win ratio|<img src="https://user-images.githubusercontent.com/122997699/216782343-806d6b73-11da-4636-b1e3-d68e6ee8b09c.png" width="450" height="250">| This graph showing ten pokemon with the best win ratio|
 
+#### Pokemon type encoding and checking the effect.
+
+Every pokemon has a type. Pokemon Type may be important, because for example water pokemon have higher chance to win against fire pokemon than against rock pokemon.
+So I decide to take into consideration pokemon first type. For these reason I must encode pokemon type in to number. I will use two ways to do this and compare the results.
+
+* Using pandas ***get_dummies*** method
+Result of using this method is creation of new columns, one for every type in first and second pokemon. 
+In the column that describes the type of a given pokemon appears 1 and in the others 0. Example result:
+
+![image](https://user-images.githubusercontent.com/122997699/223490284-acc765e0-5d07-4d7d-8e4d-c47002b89b95.png)
+
+![image](https://user-images.githubusercontent.com/122997699/223488670-771834cd-b661-4d35-9a71-ce7e5ca18c6e.png)
+
+* Using sklearn ***LabelEncoder*** method
+Result of using this method is changing every pokemon type to the corresponding number. Example result:Example result:
+
+![image](https://user-images.githubusercontent.com/122997699/223487297-4e275efe-962d-470f-bcdd-b94ce6b0ec18.png)
+
+![image](https://user-images.githubusercontent.com/122997699/223487340-40f92b1e-4633-4011-b67b-61b043f51c14.png)
+
+Second method giving better accuracy, so i choose it. 
+ 
 ### Rescaling data and choosing classifier with the highest accuracy.
 #### Rescaling data
 In this part of project first i rescale dataset. Thanks to which accuracy may be higher and training model will be faster.
@@ -57,28 +79,13 @@ for column in x_train.columns:
     x_train[column] = StandardScaler().fit_transform(ages_data)
 ```
 ***ScandarScaler()*** function standardizes features by removing the mean and scaling to unit variance.
+
+The part of code suscped for rescaling and encoding data is in ***enc_resc*** function. 
+
 #### Choosing classifier with the highest accuracy.
 
 In this case I create ***choose classifier*** function. This function return table with names and accuracy of chosen classifiers. 
-```python
-def choose_classifier(classifiers,poke_train_ftrs,poke_train_trg,poke_test_ftrs,poke_test_trg):
-    rank = pd.DataFrame(columns=["Name","Accuracy"])
-    i=0
-    for classifier in classifiers:
-        fit = classifier.fit(poke_train_ftrs, poke_train_trg)
-        preds = fit.predict(poke_test_ftrs)
-        name = classifier.__class__.__name__
-        rank.loc[i,"Name"] = name
-        rank.loc[i,"Accuracy"] = metrics.accuracy_score(poke_test_trg, preds)
-        i+=1
-    rank = rank.sort_values(by="Accuracy",ascending=False).reset_index(drop=True)
-    print(tabulate(rank, headers = 'keys', tablefmt = "rounded_outline"))
-```
-![image](https://user-images.githubusercontent.com/122997699/223136129-e5d49086-6a5c-444b-887f-050a1c6031aa.png)
-
-
-According this information I choose _RandomForestClassifier_.
-
+To finally select the classifier, cross-validation will be used.
 ## Next goals 🏆⌛
 * Create GUI
 * Try different classifiers and choose the best one
