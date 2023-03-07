@@ -108,8 +108,10 @@ def choose_classifier(classifiers,poke_train_ftrs,poke_train_trg,poke_test_ftrs,
 Results :
 
 ![image](https://user-images.githubusercontent.com/122997699/223502637-934665ee-e000-4de5-8972-41e7c661dba6.png)
+
 As you can see, Random Forest Classifier has the best accuracy from chosen models. Thanks to this information, I can use this model for next steps in my project. 
 
+The trained model is in the files under the name: _RandomForestClassifier.joblib_
 ## Next goals 🏆⌛
 * Create GUI
 
