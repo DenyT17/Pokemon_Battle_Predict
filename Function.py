@@ -6,6 +6,7 @@ import seaborn as sns
 from sklearn import (datasets, metrics,model_selection as skms,naive_bayes,neighbors)
 from sklearn.preprocessing import StandardScaler
 from tabulate import tabulate
+from sklearn.model_selection import cross_val_score
 def pokemon_battle(pokemon1,pokemon2,poke_data,x_train):
     pokemon1 = poke_data.loc[poke_data['Name'] == pokemon1].reset_index()
     pokemon2 = poke_data.loc[poke_data['Name'] == pokemon2].reset_index()
@@ -136,3 +137,5 @@ def choose_classifier(classifiers,poke_train_ftrs,poke_train_trg,poke_test_ftrs,
         i+=1
     rank = rank.sort_values(by="Accuracy",ascending=False).reset_index(drop=True)
     print(tabulate(rank, headers = 'keys', tablefmt = "rounded_outline"))
+
+# def cross_validation(model,x_data,y_data,cv):
