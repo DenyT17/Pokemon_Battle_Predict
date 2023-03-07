@@ -7,24 +7,9 @@ from sklearn import (datasets, metrics,model_selection as skms,naive_bayes,neigh
 from sklearn.preprocessing import StandardScaler
 from tabulate import tabulate
 from sklearn.model_selection import cross_val_score
-def pokemon_battle(pokemon1,pokemon2,poke_data,x_train):
-    pokemon1 = poke_data.loc[poke_data['Name'] == pokemon1].reset_index()
-    pokemon2 = poke_data.loc[poke_data['Name'] == pokemon2].reset_index()
-    pokemon1 = pokemon1.drop(['index','#','Name','Type 1','Type 2','Legendary'],axis=1)
-    pokemon2 = pokemon2.drop(['index','#','Name','Type 1','Type 2','Legendary'],axis=1)
-    pokemon2.rename(columns={ 'Type 1': 'Oponent Type 1', 'Type 2': 'Oponent Type 2',
-                                   'HP': 'Oponent HP', 'Attack': 'Oponent Attack', 'Defense': 'Oponent Defense',
-                                   'Sp. Atk': 'Oponent Sp. Atk', 'Sp. Def': 'Oponent Sp. Def', 'Speed': 'Oponent Speed',
-                                   'Generation': 'Oponent Generation'
-                                   }, inplace=True)
+from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
 
-    pokemon_battle = pd.concat([pokemon1, pokemon2], axis=1)
-    pokemon_battle = pd.concat([pokemon_battle, x_train], axis=0).reset_index()
-    pokemon_battle = pokemon_battle.drop(['index'], axis=1)
-    for column in pokemon_battle.columns:
-        ages_data = np.array(pokemon_battle[column]).reshape(-1, 1)
-        pokemon_battle[column] = StandardScaler().fit_transform(ages_data)
-    return pokemon_battle.iloc[:1]
 def analysis(poke_data,combat_data):
     # A function that calculates what percentage of the data set is a given generation
     def func(pct, allvalues):
@@ -64,7 +49,7 @@ def analysis(poke_data,combat_data):
                                    }, inplace=True)
     train = own_stats.merge(second_pokemon, on="Second_pokemon", how='left')
     train.rename(columns={'#': 'First_pokemon'}, inplace=True)
-    train["Winner"] = np.where(train["Winner"] == train['First_pokemon'], 1, 0)
+    train["Winner"] = np.where(train["Winner"] == train['First_pokemon'], 0, 1)
     train = train.drop(['First_pokemon', 'Second_pokemon', 'Name', 'Oponent Name'], axis=1)
     train = train.apply(lambda x: x.fillna(x.mean()) if x.dtype.kind in 'biufc' else x.fillna('NA'))
     ax, fig = plt.subplots(figsize=(10, 7))
@@ -124,18 +109,49 @@ def analysis(poke_data,combat_data):
     plt.show()
 
     return train,y_train
-
+def enc_resc(x_train):
+    features = ['Type 1', 'Oponent Type 1']
+    for feature in features:
+        le = preprocessing.LabelEncoder()
+        le = le.fit(x_train[feature])
+        x_train[feature] = le.transform(x_train[feature])
+    # Data Rescaling
+    for column in x_train.columns:
+        ages_data = np.array(x_train[column]).reshape(-1, 1)
+        x_train[column] = StandardScaler().fit_transform(ages_data)
+    return x_train
 def choose_classifier(classifiers,poke_train_ftrs,poke_train_trg,poke_test_ftrs,poke_test_trg):
-    rank = pd.DataFrame(columns=["Name","Accuracy"])
+    rank = pd.DataFrame(columns=["Name","Accuracy","Average CV Score"])
     i=0
     for classifier in classifiers:
         fit = classifier.fit(poke_train_ftrs, poke_train_trg)
         preds = fit.predict(poke_test_ftrs)
         name = classifier.__class__.__name__
+        scores = cross_val_score(classifier,poke_train_ftrs, poke_train_trg, cv=5)
         rank.loc[i,"Name"] = name
         rank.loc[i,"Accuracy"] = metrics.accuracy_score(poke_test_trg, preds)
+        rank.loc[i,"Average CV Score"] = scores.mean()
         i+=1
-    rank = rank.sort_values(by="Accuracy",ascending=False).reset_index(drop=True)
+    rank = rank.sort_values(by="Average CV Score",ascending=False).reset_index(drop=True)
     print(tabulate(rank, headers = 'keys', tablefmt = "rounded_outline"))
 
-# def cross_validation(model,x_data,y_data,cv):
+def pokemon_battle(pokemon1,pokemon2,poke_data,train):
+    name1=pokemon1
+    name2=pokemon2
+    x_train = train.drop(
+        ["Winner", 'Type 2', 'Oponent Type 2', 'Legendary', 'Oponent Legendary'], axis=1)
+    pokemon1 = poke_data.loc[poke_data['Name'] == pokemon1].reset_index()
+    pokemon2 = poke_data.loc[poke_data['Name'] == pokemon2].reset_index()
+    pokemon1 = pokemon1.drop(['index','#','Name','Type 2','Legendary'],axis=1)
+    pokemon2 = pokemon2.drop(['index','#','Name','Type 2','Legendary'],axis=1)
+    pokemon2.rename(columns={ 'Type 1': 'Oponent Type 1', 'Type 2': 'Oponent Type 2',
+                                   'HP': 'Oponent HP', 'Attack': 'Oponent Attack', 'Defense': 'Oponent Defense',
+                                   'Sp. Atk': 'Oponent Sp. Atk', 'Sp. Def': 'Oponent Sp. Def', 'Speed': 'Oponent Speed',
+                                   'Generation': 'Oponent Generation'
+                                   }, inplace=True)
+
+    pokemon_battle = pd.concat([pokemon1, pokemon2], axis=1)
+    pokemon_battle = pd.concat([pokemon_battle, x_train], axis=0).reset_index(drop=True)
+    pokemon_battle = enc_resc(pokemon_battle)
+
+    return pokemon_battle.iloc[:1], [name1,name2]
