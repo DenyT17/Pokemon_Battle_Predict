@@ -85,8 +85,31 @@ The part of code suscped for rescaling and encoding data is in ***enc_resc*** fu
 #### Choosing classifier with the highest accuracy.
 
 In this case I create ***choose classifier*** function. This function return table with names and accuracy of chosen classifiers. 
-To finally select the classifier, cross-validation will be used.
+To finally select the classifier, cross-validation will be used. The part of the code responsible for this operation is in ***choose_classifier*** function.
+
+```python
+def choose_classifier(classifiers,poke_train_ftrs,poke_train_trg,poke_test_ftrs,poke_test_trg):
+    rank = pd.DataFrame(columns=["Name","Accuracy","Average CV Score"])
+    i=0
+    for classifier in classifiers:
+        fit = classifier.fit(poke_train_ftrs, poke_train_trg)
+        preds = fit.predict(poke_test_ftrs)
+        name = classifier.__class__.__name__
+        scores = cross_val_score(classifier,poke_train_ftrs, poke_train_trg, cv=5)
+        rank.loc[i,"Name"] = name
+        rank.loc[i,"Accuracy"] = metrics.accuracy_score(poke_test_trg, preds)
+        rank.loc[i,"Average CV Score"] = scores.mean()
+        i+=1
+    rank = rank.sort_values(by="Average CV Score",ascending=False).reset_index(drop=True)
+    print(tabulate(rank, headers = 'keys', tablefmt = "rounded_outline"))
+```
+
+Results :
+
+![image](https://user-images.githubusercontent.com/122997699/223502637-934665ee-e000-4de5-8972-41e7c661dba6.png)
+As you can see, Random Forest Classifier has the best accuracy from chosen models. Thanks to this information, I can use this model for next steps in my project. 
+
 ## Next goals 🏆⌛
 * Create GUI
-* Try different classifiers and choose the best one
-* Cross validation and Feature enginering to increase accuracy 
+
+
