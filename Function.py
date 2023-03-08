@@ -10,11 +10,14 @@ from sklearn.model_selection import cross_val_score
 from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
 
+
+# A function that calculates what percentage of the data set is a given generation
+def func(pct, allvalues):
+    absolute = int(pct / 100. * np.sum(allvalues))
+    return "{:.1f}%\n({:d} g)".format(pct, absolute)
+
 def analysis(poke_data,combat_data):
-    # A function that calculates what percentage of the data set is a given generation
-    def func(pct, allvalues):
-        absolute = int(pct / 100. * np.sum(allvalues))
-        return "{:.1f}%\n({:d} g)".format(pct, absolute)
+
     # Fill NaN values
     poke_data["Name"].fillna(value="Unknown", inplace=True)
     plt.style.use('seaborn-v0_8-pastel')
@@ -155,3 +158,24 @@ def pokemon_battle(pokemon1,pokemon2,poke_data,train):
     pokemon_battle = enc_resc(pokemon_battle)
 
     return pokemon_battle.iloc[:1], [name1,name2]
+
+def predict(pokemon_battle,pokemon_name,model):
+    pred = model.predict(pokemon_battle)
+    print("Winner is : {0}".format(pokemon_name[pred[0]]))
+
+def get_train(poke_data,combat_data):
+    poke_data["Name"].fillna(value="Unknown", inplace=True)
+    combat_data.rename(columns={"First_pokemon": "#"}, inplace=True)
+    own_stats = combat_data.merge(poke_data, on='#', how='left')
+    second_pokemon = poke_data.rename(columns={"#": "Second_pokemon"})
+    second_pokemon.rename(columns={'Name': 'Oponent Name', 'Type 1': 'Oponent Type 1', 'Type 2': 'Oponent Type 2',
+                                   'HP': 'Oponent HP', 'Attack': 'Oponent Attack', 'Defense': 'Oponent Defense',
+                                   'Sp. Atk': 'Oponent Sp. Atk', 'Sp. Def': 'Oponent Sp. Def', 'Speed': 'Oponent Speed',
+                                   'Generation': 'Oponent Generation', 'Legendary': 'Oponent Legendary'
+                                   }, inplace=True)
+    train = own_stats.merge(second_pokemon, on="Second_pokemon", how='left')
+    train.rename(columns={'#': 'First_pokemon'}, inplace=True)
+    train["Winner"] = np.where(train["Winner"] == train['First_pokemon'], 0, 1)
+    train = train.drop(['First_pokemon', 'Second_pokemon', 'Name', 'Oponent Name'], axis=1)
+    train = train.apply(lambda x: x.fillna(x.mean()) if x.dtype.kind in 'biufc' else x.fillna('NA'))
+    return train
