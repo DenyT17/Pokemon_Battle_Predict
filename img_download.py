@@ -60,5 +60,5 @@ for orginal_name in pokemon_name:
                         shutil.copyfileobj(res.raw, f)
                     print('Image sucessfully Downloaded: ', name)
                 else:
-                    error_name.append(name)
+                    error_name.append(orginal_name)
 print(error_name)
