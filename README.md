@@ -113,6 +113,25 @@ As you can see, Random Forest Classifier has the best accuracy from chosen model
 
 The trained model is in the files under the name: _RandomForestClassifier.joblib_
 
+## Downloading pokemon pictures using web scraping
+
+Because in my GUI i want to use images showing selected pokemon i must gain pokemons images. 
+For this, I create a new file  ***img_download.py***. I will fownload images from [this page](https://pokemondb.net/pokedex/all))
+Thanks to this I have folder with pokemon images, które posiadają nazwy kompatybilne z tymi w pliku pokemon.csv.
+
+
+I manually downloaded pictures for the following pokemons:
+-Farfetch'd, 
+-Mr. Mime, 
+-DeoxysAttack Forme, 
+-Mime Jr., 
+-Giratina Altered Forme, 
+-Giratina Origin Forme, 
+-Shaymin Land Forme, 
+-Shaymin Sky Forme, 
+-Flabébé
+
+
 ## Create GUI in Kivy
 ## Next goals 🏆⌛
 * Create GUI
