@@ -112,6 +112,8 @@ Results :
 As you can see, Random Forest Classifier has the best accuracy from chosen models. Thanks to this information, I can use this model for next steps in my project. 
 
 The trained model is in the files under the name: _RandomForestClassifier.joblib_
+
+## Create GUI in Kivy
 ## Next goals 🏆⌛
 * Create GUI
 
