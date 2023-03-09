@@ -161,7 +161,7 @@ def pokemon_battle(pokemon1,pokemon2,poke_data,train):
 
 def predict(pokemon_battle,pokemon_name,model):
     pred = model.predict(pokemon_battle)
-    print("Winner is : {0}".format(pokemon_name[pred[0]]))
+    return pred
 
 def get_train(poke_data,combat_data):
     poke_data["Name"].fillna(value="Unknown", inplace=True)
