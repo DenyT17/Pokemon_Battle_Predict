@@ -26,6 +26,9 @@ I will reguraly upadte code and description.
 ## Dataset📁
 Dataset used in this project you can find below this [link](https://www.kaggle.com/datasets/terminus7/pokemon-challenge)
 
+# The final result ✅
+![2023-03-09 18-54-22](https://user-images.githubusercontent.com/122997699/224114646-2f6bf48f-b5f5-4823-9b74-810b18028880.gif)
+
 ## Project implementation description 🔍
 ### Analysis
 In this part, I analisis basic pokemon stats and put in to graph. Part of cod responsible is in ***analysis*** function. 
@@ -133,7 +136,14 @@ I manually downloaded pictures for the following pokemons:
 
 
 ## Create GUI in Kivy
+
+Thanks to Kivy I create simply GUI, in which I can choose two pokemon to battle. The GUI shows pictures of the selected Pokemon and the predicted winner.
+![image](https://user-images.githubusercontent.com/122997699/224116673-30facefc-e375-4909-a56b-7d142ffe0f1b.png)
+
+In case the selected Pokemon is not in the dataset, a popup window will appear. 
+![image](https://user-images.githubusercontent.com/122997699/224117579-94e54b66-4d85-4980-b32f-d99cbd9bec07.png)
+
 ## Next goals 🏆⌛
-* Create GUI
+* Add new window to GUI 
 
 
